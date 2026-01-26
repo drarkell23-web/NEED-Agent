@@ -6,7 +6,7 @@ app = Flask(__name__, static_folder='public')
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 🛠️ NEED a AGENT CONFIGURATION
-TELEGRAM_TOKEN = "8595813958:AAFpKSuq9j_qny2DlIgP2rJwHe1Mu_xTsDU"
+TELEGRAM_TOKEN = "7371266665:AAFRFPIy4ByVvhKmFpBSC0GqnPJXJOVas5w"
 CHAT_ID = "8187670531"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -57,4 +57,5 @@ def handle_lead():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
+
     app.run(host='0.0.0.0', port=port)
