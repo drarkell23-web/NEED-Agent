@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, send_from_directory
 app = Flask(__name__, static_folder='public')
 
 # --- DEFINITIVE CONFIG (Hardcoded to bypass Netlify Setting errors) ---
-TELEGRAM_TOKEN = "8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA"
+TELEGRAM_TOKEN = "8102006361:AAHdfcj3bXKoRMVEf3cByZ8Cn9O8OxwAewM"
 CHAT_ID = "8187670531"
 
 @app.route('/')
@@ -68,3 +68,4 @@ if __name__ == "__main__":
     # Standard Flask start
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
