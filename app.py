@@ -4,68 +4,53 @@ from flask import Flask, request, jsonify, send_from_directory
 
 app = Flask(__name__, static_folder='public')
 
-# --- DEFINITIVE CONFIG (Hardcoded to bypass Netlify Setting errors) ---
-TELEGRAM_TOKEN = "8102006361:AAHdfcj3bXKoRMVEf3cByZ8Cn9O8OxwAewM"
+# --- SENIOR CEO HARDCODED CONFIG ---
+TELEGRAM_TOKEN = "8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA"
 CHAT_ID = "8187670531"
 
 @app.route('/')
 def index():
-    # Serves your frontend
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/api/lead', methods=['POST'])
 def handle_lead():
     try:
-        # CEO Logic: Handle both Form-data AND JSON data
-        if request.is_json:
-            data = request.get_json()
-        else:
-            data = request.form
+        # Capture data from ANY source (Form or JSON)
+        data = request.form if request.form else request.get_json()
+        
+        name = data.get('name', 'N/A')
+        phone = data.get('phone', 'N/A')
+        p_type = data.get('property_type', 'N/A')
+        intent = data.get('intent', 'N/A')
+        msg = data.get('description', 'No details.')
 
-        # Extracting fields (with fallbacks so it never crashes)
-        name = data.get('name', 'Not Provided')
-        phone = data.get('phone', 'Not Provided')
-        prop_type = data.get('property_type', 'Not Provided')
-        intent = data.get('intent', 'Not Provided')
-        description = data.get('description', 'No details provided.')
-        savings = data.get('savings_amount', 'N/A')
-
-        # 1. Build the Message (HTML is safer than Markdown)
+        # Build the HTML Message
         caption = (
-            f"🏰 <b>NEED a AGENT: NEW LEAD</b>\n"
-            f"━━━━━━━━━━━━━━━━━━\n"
-            f"👤 <b>Client:</b> {name}\n"
+            f"🏰 <b>NEW SA LEAD</b>\n"
+            f"━━━━━━━━━━━━━━\n"
+            f"👤 <b>Name:</b> {name}\n"
             f"📞 <b>Phone:</b> {phone}\n"
-            f"🏢 <b>Type:</b> {prop_type}\n"
-            f"🔑 <b>Intent:</b> {intent}\n"
-            f"💰 <b>Savings:</b> {savings}\n\n"
-            f"📝 <b>Details:</b> {description}\n"
-            f"━━━━━━━━━━━━━━━━━━"
+            f"🏠 <b>Type:</b> {p_type}\n"
+            f"🔑 <b>Intent:</b> {intent}\n\n"
+            f"📝 <b>Details:</b> {msg}\n"
+            f"━━━━━━━━━━━━━━"
         )
 
-        # 2. Execute the Telegram Call
+        # Immediate Telegram Push
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        payload = {
-            'chat_id': CHAT_ID,
-            'text': caption,
-            'parse_mode': 'HTML'
-        }
+        payload = {'chat_id': CHAT_ID, 'text': caption, 'parse_mode': 'HTML'}
         
-        response = requests.post(url, data=payload, timeout=10)
+        # Send it
+        res = requests.post(url, data=payload, timeout=8)
         
-        # 3. Check Result
-        if response.status_code == 200:
-            return jsonify({"status": "success", "message": "Lead sent!"}), 200
+        if res.status_code == 200:
+            return jsonify({"status": "success"}), 200
         else:
-            # If Telegram rejects it, we return the error from them
-            return jsonify({"status": "error", "details": response.text}), 400
+            return jsonify({"status": "error", "info": res.text}), 400
 
     except Exception as e:
-        # If the code crashes, we return the exact error
         return jsonify({"status": "crash", "error": str(e)}), 500
 
+# This is for local testing. Netlify uses the 'app' object directly.
 if __name__ == "__main__":
-    # Standard Flask start
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
+    app.run(debug=True)
