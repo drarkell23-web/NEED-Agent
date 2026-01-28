@@ -10,7 +10,7 @@ public_dir = os.path.join(base_dir, 'public')
 app = Flask(__name__, static_folder=public_dir)
 
 # --- TELEGRAM CONFIG ---
-TELEGRAM_TOKEN = "8595813958:AAFpKSuq9j_qny2DlIgP2rJwHe1Mu_xTsDU"
+TELEGRAM_TOKEN = "8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA"
 CHAT_ID = "8187670531"
 
 @app.route('/')
@@ -58,3 +58,4 @@ if __name__ == "__main__":
     # Binding to 0.0.0.0 is mandatory for Render
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
