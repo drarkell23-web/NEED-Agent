@@ -2,15 +2,12 @@ import os
 import requests
 from flask import Flask, request, jsonify, send_from_directory
 
-# --- DIRECTORY CONFIGURATION ---
-base_dir = os.path.abspath(os.path.dirname(__file__))
-public_dir = os.path.join(base_dir, 'public')
+app = Flask(__name__, static_folder='public')
 
-app = Flask(__name__, static_folder=public_dir)
-
-# --- CONFIGURATION (Use Environment Variables on Render!) ---
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA")
-CHAT_ID = os.environ.get("CHAT_ID", "8187670531")
+# --- DEFINITIVE CONFIGURATION ---
+# This pulls from the Netlify Environment Variables you just set
+TELEGRAM_TOKEN = os.getenv("8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA")
+CHAT_ID = os.getenv("8187670531")
 
 @app.route('/')
 def index():
@@ -18,53 +15,42 @@ def index():
 
 @app.route('/api/lead', methods=['POST'])
 def handle_lead():
-    try:
-        # Extract Data from Form
-        name = request.form.get('name', 'N/A')
-        phone = request.form.get('phone', 'N/A')
-        prop_type = request.form.get('property_type', 'N/A')
-        intent = request.form.get('intent', 'N/A')
-        description = request.form.get('description', 'No description provided')
-        savings = request.form.get('savings_amount', 'N/A')
-        off_market = request.form.get('off_market_request', 'false')
+    # 1. Check if keys exist
+    if not TELEGRAM_TOKEN or not CHAT_ID:
+        print("❌ ERROR: Environment Variables NOT FOUND in Netlify Settings!")
+        return jsonify({"error": "Server configuration error"}), 500
 
-        # CEO Logic: Use HTML mode to prevent message crashes
-        # <b> = Bold, <i> = Italic
+    try:
+        # Extract Data
+        data = request.form
+        name = data.get('name', 'Unknown')
+        phone = data.get('phone', 'N/A')
+        
+        # 2. Build Message (Using HTML mode for maximum stability)
         caption = (
-            f"🏰 <b>NEED a AGENT: NEW LEAD</b>\n"
-            f"━━━━━━━━━━━━━━━━━━\n"
-            f"👤 <b>Client:</b> {name}\n"
+            f"🏰 <b>NEW LEAD: {name}</b>\n"
             f"📞 <b>Phone:</b> {phone}\n"
-            f"🏢 <b>Type:</b> {prop_type}\n"
-            f"🔑 <b>Intent:</b> {intent}\n"
-            f"💰 <b>Savings:</b> {savings}\n"
-            f"🕵️ <b>Off-Market:</b> {'✅ YES' if off_market == 'true' else '❌ NO'}\n\n"
-            f"📝 <b>Details:</b> <i>{description}</i>\n"
-            f"━━━━━━━━━━━━━━━━━━"
+            f"📝 <b>Details:</b> {data.get('description', 'N/A')}"
         )
 
-        # Send to Telegram
+        # 3. Execution
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        payload = {
-            'chat_id': CHAT_ID, 
-            'text': caption, 
-            'parse_mode': 'HTML'  # Changed to HTML for reliability
-        }
+        payload = {'chat_id': CHAT_ID, 'text': caption, 'parse_mode': 'HTML'}
         
-        response = requests.post(url, data=payload)
+        # We use a timeout to prevent the app from hanging
+        response = requests.post(url, data=payload, timeout=10)
         
-        # Log the result for debugging in Render logs
+        # 4. The "Senior CEO" Audit
         if response.status_code == 200:
-            print(f"✅ Lead from {name} sent to Telegram.")
+            print(f"✅ SUCCESS: Lead for {name} sent.")
             return jsonify({"success": True}), 200
         else:
-            print(f"❌ Telegram Error {response.status_code}: {response.text}")
-            return jsonify({"error": "Telegram Delivery Failed"}), 500
+            print(f"❌ TELEGRAM REJECTED: {response.status_code} - {response.text}")
+            return jsonify({"error": f"Telegram error: {response.status_code}"}), 500
 
     except Exception as e:
-        print(f"🔥 Server Error: {e}")
+        print(f"🔥 SYSTEM CRASH: {str(e)}")
         return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
