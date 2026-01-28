@@ -3,220 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEED a AGENT | South Africa's Premium Property Network</title>
+    <title>NEED a AGENT | Premium Real Estate Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920'); background-size: cover; background-attachment: fixed; }
-        .progress-bar { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        /* [UPGRADE 1] Trust Marquee Animation */
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee { display: flex; width: 200%; animation: scroll 30s linear infinite; }
-        
-        /* [UPGRADE 5] Pulse Animation */
-        @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
-        .pulse-ready { animation: pulse-blue 2s infinite; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920'); background-size: cover; }
+        .progress-bar { transition: width 0.4s ease; }
+        /* Professional POPI Overlay */
+        #popi-modal { display: none; }
+        #popi-modal.active { display: flex; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-gray-50 text-gray-900">
 
-    <div class="fixed top-0 left-0 w-full h-1.5 z-[100] bg-slate-200">
-        <div id="p-bar" class="progress-bar h-full bg-blue-600 w-0 shadow-[0_0_10px_#2563eb]"></div>
+    <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-gray-200">
+        <div id="p-bar" class="progress-bar h-full bg-blue-600 w-0"></div>
     </div>
 
-    <a href="https://wa.me/yournumber" class="fixed bottom-6 right-6 z-[90] bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    </a>
-
-    <nav class="p-5 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b">
-        <div class="text-2xl font-black tracking-tighter text-blue-900 uppercase">NEED<span class="text-blue-600 font-extrabold italic">a</span>AGENT</div>
-        <div class="hidden lg:flex gap-8 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
-            <span class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div> Live Market Data</span>
-            <a href="#compliance" class="hover:text-blue-600 transition">POPI Compliance</a>
-            <a href="#testimonials" class="hover:text-blue-600 transition">Client Results</a>
+    <nav class="p-6 flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
+        <div class="text-2xl font-extrabold tracking-tighter text-blue-900 uppercase">NEED<span class="text-blue-500 font-black">a</span>AGENT</div>
+        <div class="hidden md:flex gap-6 text-sm font-bold text-gray-600 uppercase tracking-widest">
+            <a href="#compliance" class="hover:text-blue-600">POPI Compliance</a>
+            <a href="#" class="hover:text-blue-600">Verification</a>
         </div>
-        <a href="#contact" class="bg-blue-600 text-white px-7 py-2.5 rounded-full font-bold hover:bg-blue-700 transition-all shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]">Connect Now</a>
+        <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">List My Property</a>
     </nav>
 
-    <div class="bg-white py-4 border-b overflow-hidden relative z-20">
-        <div class="marquee gap-12 items-center opacity-40 grayscale">
-            <span class="text-lg font-bold mx-8">FNB PROPERTY HUB</span>
-            <span class="text-lg font-bold mx-8">STANDARD BANK</span>
-            <span class="text-lg font-bold mx-8">PPRA REGISTERED</span>
-            <span class="text-lg font-bold mx-8">RE/MAX AFFILIATE</span>
-            <span class="text-lg font-bold mx-8">PAM GOLDING</span>
-            <span class="text-lg font-bold mx-8">FNB PROPERTY HUB</span>
-            <span class="text-lg font-bold mx-8">STANDARD BANK</span>
-            <span class="text-lg font-bold mx-8">PPRA REGISTERED</span>
-        </div>
-    </div>
-
-    <section class="hero-gradient h-[80vh] flex items-center justify-center text-center text-white px-4 relative">
-        <div class="max-w-4xl">
-            <span class="bg-blue-600/40 border border-blue-300 backdrop-blur-md px-5 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-6 inline-block">South Africa's #1 Real Estate Concierge</span>
-            <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tighter leading-none">Move Fast. <br><span class="text-blue-400">Sell Smarter.</span></h1>
-            <p class="text-xl md:text-2xl opacity-90 mb-10 font-light leading-relaxed">We bypass the noise to connect you directly with elite buyers and the top 1% of SA agents.</p>
-            <a href="#contact" class="inline-block bg-white text-blue-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-50 transition-colors">Start My Valuation</a>
+    <section class="hero-gradient h-[70vh] flex items-center justify-center text-center text-white px-4">
+        <div>
+            <span class="bg-blue-600/30 border border-blue-400 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block">South Africa's Elite Network</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Expertise in Every <span class="text-blue-400 underline decoration-2 underline-offset-8">Square Meter.</span></h1>
+            <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto font-light">Connecting Residential, Commercial, and Industrial property owners with pre-qualified buyers and agents.</p>
         </div>
     </section>
 
-    <section id="contact" class="max-w-5xl mx-auto -mt-32 relative z-30 p-4 mb-20">
-        <div class="grid lg:grid-cols-3 gap-0 bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] rounded-3xl overflow-hidden border">
-            
-            <div class="lg:col-span-2 p-8 md:p-12">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="h-8 w-1.5 bg-blue-600 rounded-full"></div>
-                    <h2 class="text-3xl font-black text-slate-900 tracking-tight">Direct Consultation</h2>
-                </div>
-
-                <form id="leadForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Legal Name</label>
-                            <input type="text" id="name" placeholder="John Doe" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition" oninput="checkPulse()">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">SA Contact Number</label>
-                            <input type="tel" id="phone" placeholder="082 000 0000" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition" oninput="checkPulse()">
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Asset Category</label>
-                            <select id="property_type" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700">
-                                <option>Residential Property</option>
-                                <option>Commercial / Retail</option>
-                                <option>Industrial / Warehouse</option>
-                                <option>Agricultural / Land</option>
-                            </select>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Urgency Level</label>
-                            <select id="intent" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-blue-600">
-                                <option value="ASAP">HIGH: Immediate Sale/Buy</option>
-                                <option value="1-3 Months">MEDIUM: Planning Stage</option>
-                                <option value="Research">LOW: Market Research</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Brief Description</label>
-                        <textarea id="description" placeholder="Location, size, or specific agent requirements..." class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl h-28 outline-none focus:ring-2 focus:ring-blue-500" oninput="checkPulse()"></textarea>
-                    </div>
-
-                    <div id="compliance" class="bg-slate-50 border p-5 rounded-2xl flex items-start gap-4">
-                        <input type="checkbox" id="popi_consent" required class="mt-1 w-6 h-6 rounded border-slate-300 text-blue-600 focus:ring-blue-500" onchange="checkPulse()">
-                        <p class="text-[11px] text-slate-500 leading-tight">
-                            I confirm that I am the authorized party for this request and grant <strong>NEED a AGENT</strong> permission to process this data in strict accordance with the <strong>POPI Act</strong> of South Africa.
-                        </p>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="w-full bg-slate-200 text-slate-500 font-black py-5 rounded-2xl uppercase tracking-widest transition-all cursor-not-allowed">
-                        Incomplete Requirements
-                    </button>
-                </form>
+    <section id="contact" class="max-w-4xl mx-auto -mt-24 relative z-10 p-4">
+        <div class="bg-white shadow-2xl rounded-2xl p-8 md:p-12 border border-gray-100">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-900">Secure Consultation</h2>
+                <span class="bg-green-100 text-green-700 text-[10px] font-bold px-3 py-1 rounded-full">ENCRYPTED</span>
             </div>
 
-            <div class="bg-blue-900 p-10 text-white flex flex-col justify-between border-l border-blue-800">
-                <div>
-                    <h3 class="text-xl font-black mb-6 border-b border-blue-700 pb-4">Latest Results</h3>
-                    <div id="testimonials" class="space-y-8 italic text-blue-100 font-light text-sm">
-                        <p>"Sold my Sandton apartment in 12 days. The agent was world-class."<br><span class="font-bold text-blue-400 not-italic text-xs text-blue-300">— Sarah M.</span></p>
-                        <p>"Best commercial industrial network in GP. Found our warehouse in 48 hours."<br><span class="font-bold text-blue-400 not-italic text-xs text-blue-300">— David K. (Logistics CEO)</span></p>
-                    </div>
-                </div>
-                
-                <div class="mt-10">
-                    <div class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Live Status</div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 bg-green-400 rounded-full"></div>
-                        <span class="text-xs font-bold uppercase">9 Agents Active Now</span>
-                    </div>
-                </div>
+            <div id="compliance" class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-8">
+                <p class="text-xs text-amber-800 font-semibold uppercase mb-1">POPI ACT COMPLIANCE NOTICE</p>
+                <p class="text-[11px] text-amber-700 leading-relaxed italic">Your data is processed strictly under the Protection of Personal Information Act No. 4 of 2013. We implement strict technical measures to protect your identity.</p>
             </div>
+
+            <form id="leadForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <input type="text" id="name" placeholder="Full Name" required class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition input-step" onfocus="updateProgress(25)">
+                    </div>
+                    <div>
+                        <input type="tel" id="phone" placeholder="Contact Number (e.g. 082...)" required class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition input-step" onfocus="updateProgress(50)">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">Property Type</label>
+                        <select id="property_type" class="w-full p-4 border rounded-xl font-semibold bg-gray-50">
+                            <option>Residential House</option>
+                            <option>Commercial Office</option>
+                            <option>Industrial Warehouse</option>
+                            <option>Vacant Land</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">Your Intent</label>
+                        <select id="intent" class="w-full p-4 border rounded-xl font-semibold bg-gray-50">
+                            <option>I want to Buy</option>
+                            <option>I want to Rent</option>
+                            <option>Sell Privately (Agent Assisted)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <textarea id="description" onfocus="updateProgress(75)" placeholder="Briefly describe your requirements..." class="w-full p-4 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500 input-step"></textarea>
+
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                    <div class="flex items-start gap-4">
+                        <input type="checkbox" id="popi_consent" required class="mt-1 w-5 h-5 cursor-pointer" onchange="updateProgress(100)">
+                        <label for="popi_consent" class="text-sm text-gray-600 leading-tight">
+                            I grant <strong>NEED a AGENT</strong> express permission to process my personal data for the purpose of property matching as per the <strong>POPI ACT</strong> requirements.
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-black py-5 rounded-xl uppercase tracking-widest hover:bg-blue-900 shadow-xl transition-all transform hover:scale-[1.02] active:scale-95">
+                    Submit Requirements
+                </button>
+            </form>
         </div>
     </section>
 
-    <footer class="bg-slate-900 py-20 px-6 text-center text-slate-500">
-        <div class="max-w-4xl mx-auto border-t border-slate-800 pt-10">
-            <div class="text-xl font-black text-white mb-6 tracking-tighter uppercase">NEED<span class="text-blue-500 font-extrabold italic">a</span>AGENT</div>
-            <p class="text-xs max-w-xl mx-auto mb-10 leading-relaxed">
-                Need a Agent (PTY) Ltd is a lead-generation and concierge platform for real estate in South Africa. We are 100% POPI Act compliant. Data protection is handled via end-to-end encryption.
-            </p>
-            <div class="flex justify-center gap-6 text-[10px] font-black uppercase tracking-widest">
-                <a href="#" class="hover:text-white">POPI Policy</a>
-                <a href="#" class="hover:text-white">Agent Verification</a>
-                <a href="#" class="hover:text-white">Terms of Use</a>
-            </div>
+    <footer class="py-20 text-center text-gray-400 text-sm">
+        <div class="mb-4">
+            <a href="#" class="hover:text-blue-600 px-2 border-r">Privacy Policy</a>
+            <a href="#" class="hover:text-blue-600 px-2 border-r">POPI Policy</a>
+            <a href="#" class="hover:text-blue-600 px-2">Terms</a>
         </div>
+        <p>© 2026 NEED a AGENT | South Africa's Premium Property Portal</p>
     </footer>
 
     <script>
+        // Senior Config
         const TG_TOKEN = "8322173594:AAGB7-XKdq3OSih_semZ5dcttN_PPqL7_AA";
         const CHAT_ID = "8187670531";
 
-        // [UPGRADE 5] Pulse & State Logic
-        function checkPulse() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const consent = document.getElementById('popi_consent').checked;
-            const btn = document.getElementById('submitBtn');
-            const pBar = document.getElementById('p-bar');
+        // [UPGRADE 3] Analytics Logger
+        function logEvent(step) {
+            console.log(`[CEO TRACKING]: User reached ${step}% of the form.`);
+        }
 
-            let progress = 0;
-            if(name) progress += 25;
-            if(phone) progress += 25;
-            if(document.getElementById('description').value) progress += 25;
-            if(consent) progress += 25;
-            pBar.style.width = progress + '%';
-
-            if(name && phone.length >= 10 && consent) {
-                btn.classList.add('bg-blue-600', 'text-white', 'pulse-ready', 'hover:scale-105', 'active:scale-95');
-                btn.classList.remove('bg-slate-200', 'text-slate-500', 'cursor-not-allowed');
-                btn.innerText = "Send Requirements Now";
-                btn.style.cursor = "pointer";
-            } else {
-                btn.classList.remove('bg-blue-600', 'text-white', 'pulse-ready', 'hover:scale-105', 'active:scale-95');
-                btn.classList.add('bg-slate-200', 'text-slate-500', 'cursor-not-allowed');
-                btn.innerText = "Incomplete Requirements";
-                btn.style.cursor = "not-allowed";
-            }
+        function updateProgress(val) {
+            document.getElementById('p-bar').style.width = val + '%';
+            logEvent(val);
         }
 
         document.getElementById('leadForm').onsubmit = async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const name = document.getElementById('name').value;
             
-            btn.innerText = "ENCRYPTING & SENDING...";
+            // [UPGRADE 2] Phone Validation Logic
+            const phoneVal = document.getElementById('phone').value;
+            if(phoneVal.length < 10) {
+                alert("Please enter a valid South African phone number.");
+                return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "TRANSMITTING SECURELY...";
             btn.disabled = true;
 
-            const text = `🏰 <b>POPI APEX LEAD</b>\n━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${name}\n📞 <b>Phone:</b> ${document.getElementById('phone').value}\n🏠 <b>Type:</b> ${document.getElementById('property_type').value}\n🚨 <b>Urgency:</b> ${document.getElementById('intent').value}\n📝 <b>Details:</b> ${document.getElementById('description').value}\n━━━━━━━━━━━━━━\n✅ <i>Verified POPI Consent Logged</i>`;
+            const name = document.getElementById('name').value;
+            const phone = phoneVal;
+            const type = document.getElementById('property_type').value;
+            const intent = document.getElementById('intent').value;
+            const desc = document.getElementById('description').value;
+
+            // Senior Message Payload
+            const text = `🏰 <b>POPI COMPLIANT LEAD</b>\n━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${name}\n📞 <b>Phone:</b> ${phone}\n🏠 <b>Type:</b> ${type}\n🔑 <b>Intent:</b> ${intent}\n📝 <b>Details:</b> ${desc}\n━━━━━━━━━━━━━━\n🛡️ <i>User provided POPI Consent via Web.</i>`;
 
             try {
                 const response = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
                 });
 
                 if(response.ok) {
-                    confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
-                    alert('SUCCESS! 🎉\n\nYour requirements have been sent directly to our agents. A specialist will call you shortly.');
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#2563eb', '#3b82f6', '#ffffff']
+                    });
+
+                    alert('CONGRATULATIONS! 🎉\n\nYour request is secure. A NEED a AGENT specialist will contact you as soon as they become available.');
                     location.reload();
                 } else {
-                    alert('Network Busy. Try again in 60 seconds.');
+                    alert('Server Busy. Please try again.');
                 }
             } catch (err) {
-                alert('Connection Error.');
+                alert('Connection Error. Check your internet.');
             } finally {
+                btn.innerText = "SUBMIT REQUIREMENTS";
                 btn.disabled = false;
-                checkPulse();
             }
         };
     </script>
